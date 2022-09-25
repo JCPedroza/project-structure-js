@@ -1,4 +1,6 @@
 const functions = [
+  require('./fibo-dummy'),
+  require('./fibo-direct'),
   require('./fibo-for'),
   require('./fibo-simple-memo-array'),
   require('./fibo-simple-memo-literal'),
