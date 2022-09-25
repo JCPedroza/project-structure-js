@@ -1,4 +1,5 @@
 const { hrtime } = require('process')
+const { print } = require('../../cli/log')
 
 /**
  * Shuffle array in-place.
@@ -21,6 +22,8 @@ const shuffleArray = (arr) => {
  * @returns {bigint} Function runtime in nanoseconds.
  */
 const time = (fun, arg) => {
+  print(`      running ${fun.id}(${arg})`)
+
   const start = hrtime.bigint()
   fun(arg)
   return hrtime.bigint() - start
@@ -31,24 +34,25 @@ const time = (fun, arg) => {
  * arguments, in nanoseconds.
  * @param {funcion} fun Function to be timed.
  * @param {any[]} args Arguments to be applied to the function.
- * @param {number} timeReps Number of function call repetitions.
- * @param {number} argsReps Number of argument run repetitions.
- * @param {boolean} shuffle Will the args array be shuffled between runs?
- * @returns {object} Timing results.
+ * @param {number} reps Number of repetitions.
+ * @param {boolean} shuffle Shuffle arrays between runs.
+ * @returns {object} Timing results in nanoseconds.
  */
-const timeArgs = (fun, args, argsReps = 1, shuffle = true) => {
-  const intArgsReps = parseInt(argsReps)
+const timeArgs = (fun, args, reps = 1, shuffle = true) => {
+  print(`    ${fun.id}`)
+
+  const intReps = parseInt(reps)
   let total = 0n
   let min
 
-  for (let aRep = 0; aRep < intArgsReps; aRep++) {
+  for (let rep = 0; rep < intReps; rep++) {
     if (shuffle) shuffleArray(args)
     let nowMin = 0n
 
     for (const arg of args) {
-      const timeResult = time(fun, arg)
-      nowMin += timeResult
-      total += timeResult
+      const result = time(fun, arg)
+      nowMin += result
+      total += result
     }
 
     min ??= nowMin
@@ -57,7 +61,7 @@ const timeArgs = (fun, args, argsReps = 1, shuffle = true) => {
 
   return {
     min,
-    avg: total / BigInt(intArgsReps)
+    avg: total / BigInt(intReps)
   }
 }
 
@@ -66,36 +70,29 @@ const timeArgs = (fun, args, argsReps = 1, shuffle = true) => {
  * different arguments, in nanoseconds.
  * @param {funcion[]} funs Functions to be timed.
  * @param {any[]} args Arguments to be applied to the functions.
- * @param {number} argsReps Number of argument run repetitions.
- * @param {number} funsReps Number of function run repetitions.
- * @param {boolean} shuffle Will the funs and args arrays be shuffled
- * between runs?
- * @returns {object} Timing results.
+ * @param {number} reps Number of repetitions.
+ * @param {boolean} shuffle Shuffle arrays between runs.
+ * @returns {object} Timing results in nanoseconds.
  */
-const timeFuns = (
-  funs,
-  args,
-  argsReps = 1,
-  funsReps = 1,
-  shuffle = true
-) => {
-  const argsResults = {}
+const timeFuns = (funs, args, reps = 1, shuffle = true) => {
+  print(`\nTiming ${funs.length} funs ${reps} times with shuffle = ${shuffle}`)
+  const times = {}
+  const intReps = parseInt(reps)
 
-  for (let fRep = 0; fRep < funsReps; fRep++) {
+  for (let rep = 0; rep < intReps; rep++) {
     if (shuffle) shuffleArray(funs)
+
     for (const { fun, id } of funs) {
-      argsResults[id] ??= []
-      argsResults[id].push(timeArgs(fun, args, argsReps, shuffle))
+      print(`  ${id}`)
+      const { min, avg } = timeArgs(fun, args, intReps, shuffle)
+
+      times[id] ??= { min, avg: 0n }
+      times[id].min = min < times[id].min ? min : times[id].min
+      times[id].avg += avg / BigInt(intReps)
     }
   }
 
-  return {
-    funs,
-    args,
-    argsReps,
-    funsReps,
-    argsResults
-  }
+  return times
 }
 
 module.exports = {
