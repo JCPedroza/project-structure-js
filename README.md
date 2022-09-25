@@ -34,9 +34,19 @@ bun install # Using bun
 To run all unit tests use one of these:
 
 ```bash
-npm test # Using npm
-bun test # Using bun
-jest .   # Using jest
+npm test   # Using npm
+bun test   # Using bun
+jest .     # Using your global jest install
+npx jest . # Using local jest install
+```
+
+To run only unit test for Fibonacci functions:
+
+```bash
+npm run test-fibo            # Using npm
+bun run test-fibo            # Using bun
+jest functions/fibonacci     # Using your global jest install
+npx jest functions/fibonacci # Using local jest install
 ```
 
 [50]: https://github.com/nodejs/node
