@@ -15,10 +15,10 @@ respectively) separately, or with `nvm`.
 
 - Or install `bun` (includes both runtime and package manager).
 
--[node][50]
--[npm][51]
--[nvm][53]
--[bun][52]
+  - [node][50]
+  - [npm][51]
+  - [nvm][53]
+  - [bun][52]
 
 Once you have a runtime and a package manager, then you need to install the
 dependencies by running one of the following commands (depending on which
