@@ -6,8 +6,8 @@
  * Number.MAX_SAFE_INTEGER is 9_007_199_254_740_991
  * fun(78) is                 8_944_394_323_791_464
  * fun(79) would be          14_472_334_024_676_221
- * So the max value that can be computed using the number type is fun(78),
- * but bigger values can be computed using the big int type.
+ * So the max value that can be accurately computed using the number type is
+ * fun(78), but bigger values can be computed using the big int type.
  */
 
 const { functions, fastFunctions } = require('./fibo.repo')
@@ -45,7 +45,8 @@ for (const { fun, id } of fastFunctions) {
       expect(fun(65)).toBe(17_167_680_177_565)
       expect(fun(70)).toBe(190_392_490_709_135)
       expect(fun(75)).toBe(2_111_485_077_978_050)
-      expect(fun(78)).toBe(8_944_394_323_791_464) // Can't go bigger
+      expect(fun(78)).toBe(8_944_394_323_791_464) // Can't go bigger accurately
+      // Bigger values are not all represented
     })
   })
 }
