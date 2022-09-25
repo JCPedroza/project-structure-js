@@ -1,4 +1,4 @@
-const functions = require('./fibo.repo')
+const { functions, fastFunctions } = require('./fibo.repo')
 
 for (const { fun, id } of functions) {
   describe(`Fibonacci algorithm "${id}"`, () => {
@@ -16,7 +16,20 @@ for (const { fun, id } of functions) {
       expect(fun(19)).toBe(4_181)
       expect(fun(25)).toBe(75_025)
       expect(fun(30)).toBe(832_040)
+      expect(fun(33)).toBe(3_524_578)
+      expect(fun(35)).toBe(9_227_465)
       expect(fun(40)).toBe(102_334_155)
+    })
+  })
+}
+
+for (const { fun, id } of fastFunctions) {
+  describe(`Fast Fibonacci algorithm "${id}"`, () => {
+    it(' ! computes big non-negative fibonacci numbers', () => {
+      expect(fun(45)).toBe(1_134_903_170)
+      expect(fun(50)).toBe(12_586_269_025)
+      expect(fun(55)).toBe(139_583_862_445)
+      expect(fun(60)).toBe(1_548_008_755_920)
     })
   })
 }
