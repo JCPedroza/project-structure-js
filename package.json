@@ -9,9 +9,15 @@
     "style": "standard .",
     "style-fix": "standard . --fix"
   },
-  "keywords": ["profile", "timing"],
+  "keywords": [
+    "profile",
+    "timing"
+  ],
   "author": "JCPedroza",
   "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.0.1"
+  },
   "devDependencies": {
     "jest": "^29.0.3",
     "standard": "^17.0.0"
