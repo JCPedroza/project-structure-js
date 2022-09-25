@@ -1,3 +1,9 @@
+/**
+ * You normally need much fewer unit tests, but since the focus of this project
+ * is profiling, more unit tests are added to accentuate the timing differences
+ * between implementations.
+ */
+
 const { functions, fastFunctions } = require('./fibo.repo')
 
 for (const { fun, id } of functions) {
