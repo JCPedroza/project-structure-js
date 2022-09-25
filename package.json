@@ -1,15 +1,17 @@
 {
-  "name": "js",
-  "version": "1.0.0",
-  "description": "",
+  "name": "profile-algorithms",
+  "version": "0.0.1",
+  "description": "algorithm profiling",
   "main": "index.js",
   "scripts": {
     "test": "jest .",
-    "test-fibo": "jest functions/fibonacci/"
+    "test-fibo": "jest functions/fibonacci/",
+    "style": "standard .",
+    "style-fix": "standard . --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["profile", "timing"],
+  "author": "JCPedroza",
+  "license": "MIT",
   "devDependencies": {
     "jest": "^29.0.3",
     "standard": "^17.0.0"
