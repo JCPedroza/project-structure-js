@@ -81,6 +81,7 @@ const timeFuns = (funs, args, reps = 1, shuffle = true) => {
 
   for (let rep = 0; rep < intReps; rep++) {
     if (shuffle) shuffleArray(funs)
+    let total = 0n
 
     for (const { fun, id } of funs) {
       print(`  ${id}`)
@@ -88,8 +89,10 @@ const timeFuns = (funs, args, reps = 1, shuffle = true) => {
 
       times[id] ??= { min, avg: 0n }
       times[id].min = min < times[id].min ? min : times[id].min
-      times[id].avg += avg / BigInt(intReps)
+      total += avg
     }
+
+    times[id].avg += total / BigInt(intReps)
   }
 
   return times
