@@ -22,7 +22,7 @@ const shuffleArray = (arr) => {
  * @returns {bigint} Function runtime in nanoseconds.
  */
 const time = (fun, arg) => {
-  print(`      running ${fun.id}(${arg})`)
+  print(`running ${fun.id}(${arg})`, 3)
 
   const start = hrtime.bigint()
   fun(arg)
@@ -39,7 +39,7 @@ const time = (fun, arg) => {
  * @returns {object} Timing results in nanoseconds.
  */
 const timeArgs = (fun, args, reps = 1, shuffle = true) => {
-  print(`    ${fun.id}`)
+  print(`${fun.id}`, 2)
 
   const intReps = parseInt(reps)
   let total = 0n
@@ -75,7 +75,7 @@ const timeArgs = (fun, args, reps = 1, shuffle = true) => {
  * @returns {object} Timing results in nanoseconds.
  */
 const timeFuns = (funs, args, reps = 1, shuffle = true) => {
-  print(`\nTiming ${funs.length} funs ${reps} times with shuffle = ${shuffle}`)
+  print(`Timing ${funs.length} funs ${reps} times with shuffle = ${shuffle}`, 0)
   const times = {}
   const intReps = parseInt(reps)
 
@@ -84,7 +84,7 @@ const timeFuns = (funs, args, reps = 1, shuffle = true) => {
     let total = 0n
 
     for (const { fun, id } of funs) {
-      print(`  ${id}`)
+      print(`${id}`, 1)
       const { min, avg } = timeArgs(fun, args, intReps, shuffle)
 
       times[id] ??= { min, avg: 0n }
