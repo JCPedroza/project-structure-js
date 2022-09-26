@@ -81,7 +81,6 @@ const timeFuns = (funs, args, reps = 1, shuffle = true) => {
 
   for (let rep = 0; rep < intReps; rep++) {
     if (shuffle) shuffleArray(funs)
-    let total = 0n
 
     for (const { fun, id } of funs) {
       print(`${id}`, 1)
