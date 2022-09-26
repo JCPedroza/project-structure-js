@@ -20,7 +20,13 @@ const levels = {
  * @param {string} str String to print.
  * @param {number} lvl Priority level.
  */
-const print = (str, lvl) => levels[lvl](str)
+const print = (str, lvl) => {
+  if (levels[lvl] === undefined) {
+    throw new Error(`Invalid print level ${lvl}`)
+  }
+
+  return levels[lvl](str)
+}
 
 module.exports = {
   print
