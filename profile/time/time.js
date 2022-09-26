@@ -89,10 +89,8 @@ const timeFuns = (funs, args, reps = 1, shuffle = true) => {
 
       times[id] ??= { min, avg: 0n }
       times[id].min = min < times[id].min ? min : times[id].min
-      total += avg
+      times[avg] += avg / BigInt(intReps)
     }
-
-    times[id].avg += total / BigInt(intReps)
   }
 
   return times
